@@ -1,0 +1,179 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GTA SA-MP Server</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: white;
+      text-align: center;
+      background: url('file-EVj9DXLaAJ9v4ujMvByiF3') no-repeat center center/cover;
+    }
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.7);
+      min-height: 100vh;
+      padding: 2rem;
+    }
+    header img {
+      max-width: 250px;
+      margin-bottom: 2rem;
+    }
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+    .btn {
+      display: inline-block;
+      padding: 1rem 2rem;
+      margin: 1rem;
+      background-color: #ff5500;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .btn:hover {
+      background-color: #ff3300;
+    }
+    .form-group {
+      margin: 1rem auto;
+      max-width: 400px;
+      text-align: left;
+    }
+    label, input {
+      display: block;
+      width: 100%;
+      font-size: 1rem;
+    }
+    input {
+      padding: 0.5rem;
+      margin-top: 0.3rem;
+      border-radius: 4px;
+      border: none;
+    }
+    form button {
+      margin-top: 1rem;
+      width: 100%;
+    }
+    .hidden {
+      display: none;
+    }
+  
+    .features {
+      margin-top: 2rem;
+    }
+    .feature-box {
+      display: inline-block;
+      width: 250px;
+      background-color: #1d1d1d;
+      margin: 1rem;
+      padding: 1rem;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(255, 85, 0, 0.3);
+    }
+    .feature-box h3 {
+      color: #ff6600;
+    }
+    </style>
+    
+</head>
+<body>
+  <div class="overlay">
+    <header>
+      <img src="file-GDcYWyp5wn7bCXuEJGT3km" alt="GTA SA-MP Logo" />
+      <h1>Chào mừng đến với Server GTA SA-MP</h1>
+    </header>
+
+    <a href="https://discord.gg/Uww92ASK" class="btn">Tham gia Discord</a>
+
+    <!-- Đăng ký -->
+    <section id="registerSection">
+      <h2>Đăng ký nhân vật</h2>
+      <form id="registerForm">
+        <div class="form-group">
+          <label for="regUsername">Tên nhân vật:</label>
+          <input type="text" id="regUsername" required />
+        </div>
+        <div class="form-group">
+          <label for="regPassword">Mật khẩu:</label>
+          <input type="password" id="regPassword" required />
+        </div>
+        <button type="submit" class="btn">Đăng ký</button>
+      </form>
+      <p>Bạn đã có tài khoản? <a href="#" onclick="showLogin()">Đăng nhập</a></p>
+    </section>
+
+    <!-- Đăng nhập -->
+    <section id="loginSection" class="hidden">
+      <h2>Đăng nhập</h2>
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="loginUsername">Tên nhân vật:</label>
+          <input type="text" id="loginUsername" required />
+        </div>
+        <div class="form-group">
+          <label for="loginPassword">Mật khẩu:</label>
+          <input type="password" id="loginPassword" required />
+        </div>
+        <button type="submit" class="btn">Đăng nhập</button>
+      </form>
+      <p>Chưa có tài khoản? <a href="#" onclick="showRegister()">Đăng ký</a></p>
+    </section>
+
+    <!-- Trang chào mừng sau khi đăng nhập -->
+    <section id="welcomeSection" class="hidden">
+      <h1>Chào mừng, <span id="playerName"></span>!</h1>
+      <p>Bạn đã vào game thành công.</p><section id="homeSection" style="margin-top: 2rem;"><h2>Trang Chủ Server SAMP</h2><p>Tham gia cộng đồng chơi GTA SA-MP cùng hàng trăm người chơi mỗi ngày. Cùng khám phá thế giới mở, nhiệm vụ, bang hội và nhiều điều hấp dẫn khác!</p><div><a class="btn" href="https://your-launcher-link.com">Tải Launcher</a> <a class="btn" href="https://discord.gg/Uww92ASK">Vào Discord</a></div><div class="features"><div class="feature-box"><h3>Thế giới mở</h3><p>Khám phá bản đồ rộng lớn với đầy đủ địa điểm, phương tiện và nhiệm vụ.</p></div><div class="feature-box"><h3>Bang hội & Roleplay</h3><p>Tham gia các bang hội, nhập vai và phát triển nhân vật của bạn.</p></div><div class="feature-box"><h3>Sự kiện & Phần thưởng</h3><p>Sự kiện mỗi tuần với quà tặng hấp dẫn cho người chơi tích cực.</p></div></div></section>
+      <button class="btn" onclick="logout()">Đăng xuất</button>
+    </section>
+  </div>
+
+  <script>
+    const users = {};
+
+    document.getElementById('registerForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const username = document.getElementById('regUsername').value;
+      const password = document.getElementById('regPassword').value;
+      users[username] = password;
+      alert("Đăng ký thành công! Hãy đăng nhập.");
+      showLogin();
+    });
+
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const username = document.getElementById('loginUsername').value;
+      const password = document.getElementById('loginPassword').value;
+      if (users[username] === password) {
+        document.getElementById('playerName').textContent = username;
+        document.getElementById('loginSection').classList.add('hidden');
+        document.getElementById('welcomeSection').classList.remove('hidden');
+      } else {
+        alert("Tên hoặc mật khẩu sai!");
+      }
+    });
+
+    function showLogin() {
+      document.getElementById('registerSection').classList.add('hidden');
+      document.getElementById('loginSection').classList.remove('hidden');
+    }
+
+    function showRegister() {
+      document.getElementById('loginSection').classList.add('hidden');
+      document.getElementById('registerSection').classList.remove('hidden');
+    }
+
+    function logout() {
+      document.getElementById('welcomeSection').classList.add('hidden');
+      document.getElementById('loginSection').classList.remove('hidden');
+      document.getElementById('loginForm').reset();
+    }
+  </script>
+</body>
+</html>
